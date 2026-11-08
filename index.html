@@ -10,8 +10,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap">
 <style>
-:root{--bg:#EEF2F0;--panel:#fff;--ink:#16261C;--ink-2:#3F4F5B;--muted:#55636C;--line:#D5DDDA;--accent:#1F5135;--on-accent:#fff;--gold:#8A5A00;--gold-bg:#FFF4D6;--on-gold:#fff;--hero:#0F1B2D;--hero-2:#16294A;--ring:#0B6BCB;--ok:#1B6B3A}
-@media (prefers-color-scheme:dark){:root{color-scheme:dark;--bg:#0F171D;--panel:#16222B;--ink:#E4ECEF;--ink-2:#B8C6CD;--muted:#9AABB4;--line:#2A3A45;--accent:#6BAA68;--on-accent:#0B140E;--gold:#F2C14E;--gold-bg:#2B2410;--on-gold:#1A1400;--ring:#8DB8FF;--ok:#7FD19A}}
+:root{--bg:#EEF2F0;--panel:#fff;--ink:#16261C;--ink-2:#3F4F5B;--muted:#55636C;--line:#D5DDDA;--accent:#1F5135;--on-accent:#fff;--gold:#8A5A00;--gold-bg:#FFF4D6;--on-gold:#fff;--side:#16261C;--side-ink:#DCE5EA;--side-2:#1F3527;--hline:#3C5A44;--hbox:#0E1A12;--hlink:#7FBF7A;--ring:#0B6BCB;--ok:#1B6B3A}
+@media (prefers-color-scheme:dark){:root{color-scheme:dark;--bg:#0F171D;--panel:#16222B;--ink:#E4ECEF;--ink-2:#B8C6CD;--muted:#9AABB4;--line:#2A3A45;--accent:#6BAA68;--on-accent:#0B140E;--gold:#F2C14E;--gold-bg:#2B2410;--on-gold:#1A1400;--ring:#8DB8FF;--ok:#7FD19A;--side:#0B140E;--side-2:#13241A}}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"Source Sans 3","Segoe UI",system-ui,sans-serif;font-size:17px;line-height:1.55}
@@ -21,46 +21,46 @@ a{color:inherit}
 .sr{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .mono{font-family:"JetBrains Mono",ui-monospace,monospace}
 /* ---------- herói ---------- */
-.hero{background:var(--hero);background-image:radial-gradient(circle,rgba(255,255,255,.28) 1px,transparent 1.6px),radial-gradient(circle,rgba(255,255,255,.16) 1px,transparent 1.6px),linear-gradient(160deg,var(--hero),var(--hero-2));background-size:46px 46px,29px 29px,auto;background-position:0 0,14px 21px,0 0;color:#E6EEF8;padding:clamp(22px,5vw,48px) clamp(16px,5vw,64px) clamp(28px,5vw,52px);border-bottom:4px solid #2E4B7A}
+.hero{background:var(--side);background-image:radial-gradient(circle,rgba(255,255,255,.14) 1px,transparent 1.6px),radial-gradient(circle,rgba(255,255,255,.08) 1px,transparent 1.6px),linear-gradient(160deg,var(--side),var(--side-2));background-size:46px 46px,29px 29px,auto;background-position:0 0,14px 21px,0 0;color:var(--side-ink);padding:clamp(22px,5vw,48px) clamp(16px,5vw,64px) clamp(28px,5vw,52px);border-bottom:4px solid var(--accent)}
 .hero .wrap{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(290px,.95fr);gap:28px;align-items:center}
-.back{display:inline-block;color:#9CC2FF;text-decoration:none;font-size:15px;margin-bottom:12px}
+.back{display:inline-block;color:var(--hlink);text-decoration:none;font-size:15px;margin-bottom:12px}
 .back:hover{text-decoration:underline}
-.eyebrow{display:block;font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#F2C14E}
+.eyebrow{display:block;font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--hlink)}
 h1{font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-size:clamp(40px,7vw,72px);line-height:1;margin:10px 0 12px;color:#fff;text-wrap:balance;letter-spacing:.01em}
-h1 em{font-style:normal;color:#F2C14E}
-.lead{margin:0 0 18px;max-width:54ch;color:#C6D4E6;font-size:18px}
+h1 em{font-style:normal;color:var(--hlink)}
+.lead{margin:0 0 18px;max-width:54ch;color:#B8C6CD;font-size:18px}
 .acoes{display:flex;flex-wrap:wrap;gap:10px}
 .cta{display:inline-flex;align-items:center;gap:8px;min-height:46px;padding:0 20px;border:0;border-radius:6px;background:#F2B705;color:#1A1400;font:700 16px/1.2 "Source Sans 3",system-ui,sans-serif;text-decoration:none;cursor:pointer;box-shadow:0 4px 0 #8A6A00;transition:transform .08s ease,box-shadow .08s ease;text-align:left}
 .cta:hover{transform:translateY(2px);box-shadow:0 2px 0 #8A6A00}
 .cta small{display:block;font-weight:600;font-size:12px;opacity:.85}
-.cta.sec{background:transparent;color:#E6EEF8;box-shadow:inset 0 0 0 2px #5B7CB0}
-.cta.sec:hover{box-shadow:inset 0 0 0 2px #9CC2FF}
+.cta.sec{background:transparent;color:var(--side-ink);box-shadow:inset 0 0 0 2px var(--hline)}
+.cta.sec:hover{box-shadow:inset 0 0 0 2px var(--hlink)}
 /* cartão do jogador */
-.player{background:rgba(8,16,32,.78);border:2px solid #4B6FA8;border-radius:10px;padding:18px;box-shadow:6px 6px 0 rgba(0,0,0,.35)}
+.player{background:rgba(0,0,0,.28);border:2px solid var(--hline);border-radius:10px;padding:18px;box-shadow:6px 6px 0 rgba(0,0,0,.35)}
 .player .top{display:flex;gap:14px;align-items:center}
-.sprite{width:72px;height:72px;flex:none;background:#10264A;border:2px solid #4B6FA8;border-radius:6px;display:grid;place-items:center}
+.sprite{width:72px;height:72px;flex:none;background:var(--hbox);border:2px solid var(--hline);border-radius:6px;display:grid;place-items:center}
 .sprite svg{width:56px;height:56px}
 .player h2{margin:0;font-family:"Barlow Condensed",sans-serif;font-size:28px;line-height:1.05;color:#fff}
 .tit{font-family:"JetBrains Mono",monospace;font-size:12px;color:#F2C14E;letter-spacing:.08em;text-transform:uppercase}
-.xp{margin:14px 0 6px;height:16px;background:#0A1426;border:2px solid #4B6FA8;border-radius:4px;overflow:hidden}
+.xp{margin:14px 0 6px;height:16px;background:var(--hbox);border:2px solid var(--hline);border-radius:4px;overflow:hidden}
 .xp i{display:block;height:100%;width:0;background:repeating-linear-gradient(90deg,#F2B705 0 10px,#FFD24D 10px 12px);transition:width .8s ease}
-.ln{display:flex;justify-content:space-between;gap:8px;font-size:14px;color:#C6D4E6}
+.ln{display:flex;justify-content:space-between;gap:8px;font-size:14px;color:#B8C6CD}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
-.stats div{background:#0A1426;border:1px solid #2E4B7A;border-radius:6px;padding:8px 6px;text-align:center}
+.stats div{background:var(--hbox);border:1px solid var(--hline);border-radius:6px;padding:8px 6px;text-align:center}
 .stats b{display:block;font-family:"JetBrains Mono",monospace;font-size:20px;color:#fff}
-.stats small{font-size:12px;color:#B5C6DC}
-.semana{display:flex;justify-content:space-between;gap:4px;margin-top:12px;padding:10px;background:#0A1426;border:1px solid #2E4B7A;border-radius:6px}
-.semana span{flex:1;text-align:center;font:700 12px "JetBrains Mono",monospace;color:#9FB2CC}
-.semana span i{display:block;width:22px;height:22px;margin:4px auto 0;border-radius:4px;border:2px solid #3B5684;background:transparent}
+.stats small{font-size:12px;color:#B8C6CD}
+.semana{display:flex;justify-content:space-between;gap:4px;margin-top:12px;padding:10px;background:var(--hbox);border:1px solid var(--hline);border-radius:6px}
+.semana span{flex:1;text-align:center;font:700 12px "JetBrains Mono",monospace;color:#9DB0A3}
+.semana span i{display:block;width:22px;height:22px;margin:4px auto 0;border-radius:4px;border:2px solid var(--hline);background:transparent}
 .semana span.on i{background:#F2B705;border-color:#F2B705}
 .semana span.hoje{color:#fff}
-.semana span.hoje i{box-shadow:0 0 0 2px #9CC2FF}
-.semana-t{display:flex;justify-content:space-between;margin-top:12px;font-size:13px;color:#C6D4E6}
-.sync{display:flex;align-items:flex-start;gap:8px;margin:12px 0 0;font-size:14px;color:#C6D4E6}
-.sync .dot{width:10px;height:10px;border-radius:50%;background:#9FB2CC;flex:none;margin-top:6px}
+.semana span.hoje i{box-shadow:0 0 0 2px var(--hlink)}
+.semana-t{display:flex;justify-content:space-between;margin-top:12px;font-size:13px;color:#B8C6CD}
+.sync{display:flex;align-items:flex-start;gap:8px;margin:12px 0 0;font-size:14px;color:#B8C6CD}
+.sync .dot{width:10px;height:10px;border-radius:50%;background:#9DB0A3;flex:none;margin-top:6px}
 .sync .txt{flex:1;min-width:0}
 .sync.ok .dot{background:#5FD38A}.sync.aviso .dot{background:#F2B705}
-.sync button{background:none;border:0;color:#9CC2FF;text-decoration:underline;font:inherit;cursor:pointer;padding:4px 0}
+.sync button{background:none;border:0;color:var(--hlink);text-decoration:underline;font:inherit;cursor:pointer;padding:4px 0}
 /* ---------- conteúdo ---------- */
 main{padding:clamp(20px,4vw,40px) clamp(16px,5vw,64px) 72px}
 .toast{display:flex;gap:14px;align-items:center;background:var(--panel);border:2px solid var(--gold);border-radius:10px;padding:14px 18px;margin:0 0 16px;box-shadow:4px 4px 0 var(--gold);animation:entra .5s ease}
@@ -113,15 +113,15 @@ a.dc[hidden]{display:none}
 .ban{height:104px;position:relative;display:grid;place-items:center;background-size:14px 14px,auto}
 .ban svg{width:56px;height:56px;filter:drop-shadow(3px 3px 0 rgba(0,0,0,.28))}
 .tag{position:absolute;top:8px;left:8px;font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;letter-spacing:.06em;padding:3px 8px;border-radius:3px;background:#F2B705;color:#1A1400}
-.tag.b{left:auto;right:8px;background:#0F1B2D;color:#E6EEF8}
+.tag.b{left:auto;right:8px;background:var(--side);color:var(--side-ink)}
 .tag.feito{left:auto;right:8px;background:#1B6B3A;color:#fff}
 .dcb{padding:14px 14px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
 .dcb .n{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
 .dcb h4{margin:0;font-family:"Barlow Condensed",sans-serif;font-size:26px;line-height:1.05}
 .dcb p{margin:0;color:var(--ink-2);font-size:15px}
 .nv{align-self:flex-start;font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;letter-spacing:.08em;padding:3px 8px;border-radius:3px;border:2px solid currentColor}
-.nv.ini{color:#1B6B3A}.nv.int{color:#8A5A00}.nv.ext{color:#365B9E}
-@media (prefers-color-scheme:dark){.nv.ini{color:#7FD19A}.nv.int{color:#F0B25A}.nv.ext{color:#9DBBF5}}
+.nv.ini{color:#1B6B3A}.nv.int{color:#8A5A00}.nv.ext{color:#55636C}
+@media (prefers-color-scheme:dark){.nv.ini{color:#7FD19A}.nv.int{color:#F0B25A}.nv.ext{color:#B8C6CD}}
 .bar{height:10px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:auto}
 .bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .6s ease}
 .pr{font-size:13px;color:var(--muted);font-family:"JetBrains Mono",monospace}
@@ -135,7 +135,7 @@ a.dc[hidden]{display:none}
 .adv .no circle{fill:var(--panel);stroke:var(--muted);stroke-width:4}
 .adv .no.on circle{stroke:var(--accent);fill:var(--accent)}
 .adv .no.ok circle{stroke:var(--gold);fill:var(--gold)}
-.adv .no.agora circle{stroke-width:7;stroke:var(--ring)}
+.adv .no.agora circle{stroke-width:6;stroke:var(--accent);stroke-dasharray:7 5}
 .adv .no text.n{font:700 20px "JetBrains Mono",monospace;fill:var(--ink);text-anchor:middle;dominant-baseline:central}
 .adv .no.on text.n{fill:var(--on-accent)}.adv .no.ok text.n{fill:var(--on-gold)}
 .adv .no text.l{font:600 14px "Source Sans 3",system-ui,sans-serif;fill:var(--ink);text-anchor:middle}
@@ -149,7 +149,7 @@ a.dc[hidden]{display:none}
 .legenda span::before{content:"";display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:-1px;border:3px solid var(--muted);background:var(--panel)}
 .legenda .l2::before{border-color:var(--accent);background:var(--accent)}
 .legenda .l3::before{border-color:var(--gold);background:var(--gold)}
-.legenda .l4::before{border-color:var(--ring)}
+.legenda .l4::before{border-color:var(--accent);border-style:dashed}
 /* conquistas */
 .conq{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
 .cq{display:flex;gap:12px;align-items:center;background:var(--panel);border:2px solid var(--line);border-radius:10px;padding:12px}
@@ -169,7 +169,7 @@ footer{margin-top:40px;color:var(--muted);font-size:14px}
 <link rel="icon" type="image/png" sizes="32x32" href="../disciplinas/icons/favicon-32.png">
 <link rel="icon" href="../disciplinas/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="../disciplinas/icons/apple-touch-icon.png">
-<meta name="theme-color" content="#0F1B2D">
+<meta name="theme-color" content="#16261C">
 </head>
 <body>
 <header class="hero"><div class="wrap">
@@ -247,9 +247,9 @@ footer{margin-top:40px;color:var(--muted);font-size:14px}
   }
   /* O personagem evolui: a roupa muda de cor a cada faixa de nível e ganha coroa no nível 5. */
   function sprite(L) {
-    var roupa = L >= 5 ? "#F2B705" : L >= 4 ? "#A57DE0" : L >= 2 ? "#3FBF7F" : "#4C8DFF";
+    var roupa = L >= 5 ? "#F2B705" : L >= 4 ? "#C85A6C" : L >= 2 ? "#2FA58A" : "#5BA36A";
     var S = [L >= 5 ? ".y.y..y.y." : "..........", L >= 5 ? ".yyyyyyyy." : "...cccc...", ".cccccccc.", "..ssssss..", "..sksskss.", "..ssssss..", "...ssss...", ".bbbbbbbb.", "bbbbbbbbbb", "bb.bbbb.bb", "...bb.bb.."];
-    var cor = { c: "#5A3A1A", s: "#F5C9A0", k: "#10264A", b: roupa, y: "#F2B705" }, r = "";
+    var cor = { c: "#5A3A1A", s: "#F5C9A0", k: "#16261C", b: roupa, y: "#F2B705" }, r = "";
     S.forEach(function (l, y) { for (var x = 0; x < l.length; x++) if (cor[l[x]]) r += '<rect x="' + x + '" y="' + y + '" width="1" height="1" fill="' + cor[l[x]] + '"/>'; });
     return '<svg viewBox="0 0 10 11" shape-rendering="crispEdges" aria-hidden="true" focusable="false">' + r + "</svg>";
   }
@@ -258,23 +258,23 @@ footer{margin-top:40px;color:var(--muted);font-size:14px}
   var MM = ["Engenharia de Software", "Banco de Dados e BI", "Redes e Infraestrutura", "Segurança e Ciber", "Cloud e DevOps", "Governança e Projetos", "Sistemas Operacionais", "LGPD e Contratações", "IA e Emergentes"];
   var FS = ["Conceitos", "Informação e organizações", "Tipos de SI", "Papéis estratégicos", "Desenvolvimento", "Segurança"];
   var D = {
-    "informatica-basica": { nome: "Informática Básica", d: "Primeiros passos no computador, na internet e no pensamento computacional.", nv: "ini", ic: "monitor", cor: ["#1F6F5C", "#2FA58A"] },
-    "fundamentos-de-sistemas-de-informacao": { nome: "Fundamentos para Sistemas de Informação", d: "Conceitos, tipos e papel estratégico dos SI, com diagramas clicáveis e atividades.", nv: "ini", ic: "livro", cor: ["#2B4C9B", "#4C7AE0"], novo: 1, mot: { disc: "fsi", n: 6, nomes: FS } },
-    "recursos-de-aula": { nome: "Recursos de aula", d: "Cronômetro com ranking de equipes, linha do tempo tecnológica e códigos para aprender com IA.", nv: "ext", ic: "estrela", cor: ["#7A4FB3", "#A57DE0"] },
-    "redes-de-computadores": { nome: "Redes de Computadores", d: "Da ARPANET ao cabo crimpado, seguindo as camadas do modelo TCP/IP.", nv: "ini", ic: "rede", cor: ["#0E6A8C", "#2CA6D1"] },
-    "projeto-de-redes": { nome: "Projeto de Redes", d: "Metodologia Top-Down: das metas do negócio ao teste e à documentação da rede.", nv: "int", ic: "mapa", cor: ["#1D5C7A", "#3D8FB5"] },
-    "laboratorio-3d": { nome: "Laboratório 3D", d: "ESP32, micro:bit e Arduino em 3D: gire a placa, monte o circuito e programe no navegador.", nv: "ext", ic: "chip", cor: ["#A24A1A", "#E07B3C"] },
-    "construcao-de-sites-1": { nome: "Construção de Sites 1", d: "HTML e CSS do bloco de notas ao site publicado.", nv: "ini", ic: "cubo", cor: ["#B2467A", "#E0709F"] },
-    "engenharia-de-software": { nome: "Engenharia de Software", d: "Processos, requisitos e modelagem de software.", nv: "int", ic: "cubo", cor: ["#4A55B8", "#7C86F0"] },
-    "banco-de-dados": { nome: "Banco de Dados", d: "Modelagem, SQL e integração de sistemas com banco de dados.", nv: "int", ic: "banco", cor: ["#2E6B3A", "#5BA36A"] },
-    "seguranca-da-informacao": { nome: "Segurança da Informação", d: "Princípios, ameaças, controles e boas práticas de proteção da informação.", nv: "int", ic: "escudo", cor: ["#8A2B3A", "#C85A6C"] },
-    "mapas-mentais": { nome: "Mapas Mentais de TI", d: "Nove módulos de revisão visual: software, dados, redes, segurança, nuvem, governança, SO, LGPD e IA.", nv: "int", ic: "nuvem", cor: ["#3B3F9E", "#6E73E0"], novo: 1, mot: { disc: "mmti", n: 9, nomes: MM } }
+    "informatica-basica": { nome: "Informática Básica", d: "Primeiros passos no computador, na internet e no pensamento computacional.", nv: "ini", ic: "monitor", cor: 1 },
+    "fundamentos-de-sistemas-de-informacao": { nome: "Fundamentos para Sistemas de Informação", d: "Conceitos, tipos e papel estratégico dos SI, com diagramas clicáveis e atividades.", nv: "ini", ic: "livro", cor: 1, novo: 1, mot: { disc: "fsi", n: 6, nomes: FS } },
+    "recursos-de-aula": { nome: "Recursos de aula", d: "Cronômetro com ranking de equipes, linha do tempo tecnológica e códigos para aprender com IA.", nv: "ext", ic: "estrela", cor: 1 },
+    "redes-de-computadores": { nome: "Redes de Computadores", d: "Da ARPANET ao cabo crimpado, seguindo as camadas do modelo TCP/IP.", nv: "ini", ic: "rede", cor: 1 },
+    "projeto-de-redes": { nome: "Projeto de Redes", d: "Metodologia Top-Down: das metas do negócio ao teste e à documentação da rede.", nv: "int", ic: "mapa", cor: 1 },
+    "laboratorio-3d": { nome: "Laboratório 3D", d: "ESP32, micro:bit e Arduino em 3D: gire a placa, monte o circuito e programe no navegador.", nv: "ext", ic: "chip", cor: 1 },
+    "construcao-de-sites-1": { nome: "Construção de Sites 1", d: "HTML e CSS do bloco de notas ao site publicado.", nv: "ini", ic: "cubo", cor: 1 },
+    "engenharia-de-software": { nome: "Engenharia de Software", d: "Processos, requisitos e modelagem de software.", nv: "int", ic: "cubo", cor: 1 },
+    "banco-de-dados": { nome: "Banco de Dados", d: "Modelagem, SQL e integração de sistemas com banco de dados.", nv: "int", ic: "banco", cor: 1 },
+    "seguranca-da-informacao": { nome: "Segurança da Informação", d: "Princípios, ameaças, controles e boas práticas de proteção da informação.", nv: "int", ic: "escudo", cor: 1 },
+    "mapas-mentais": { nome: "Mapas Mentais de TI", d: "Nove módulos de revisão visual: software, dados, redes, segurança, nuvem, governança, SO, LGPD e IA.", nv: "int", ic: "nuvem", cor: 1, novo: 1, mot: { disc: "mmti", n: 9, nomes: MM } }
   };
   var J = [
-    { t: "Primeiros passos em TI", d: "Base sólida: entenda o computador, os sistemas de informação e ganhe ferramentas para o dia a dia.", ic: "monitor", cor: "#2FA58A", ids: ["informatica-basica", "fundamentos-de-sistemas-de-informacao", "recursos-de-aula"] },
-    { t: "Redes e infraestrutura", d: "Do cabo ao projeto: aprenda como a informação viaja e como se desenha uma rede.", ic: "rede", cor: "#2CA6D1", ids: ["redes-de-computadores", "projeto-de-redes", "laboratorio-3d"] },
-    { t: "Software e dados", d: "Construa sites, modele sistemas e domine o banco de dados por trás de tudo.", ic: "cubo", cor: "#7C86F0", ids: ["construcao-de-sites-1", "engenharia-de-software", "banco-de-dados"] },
-    { t: "Segurança e visão geral", d: "Proteja a informação e revise os grandes temas de TI em mapas interativos.", ic: "escudo", cor: "#C85A6C", ids: ["seguranca-da-informacao", "mapas-mentais"] }
+    { t: "Primeiros passos em TI", d: "Base sólida: entenda o computador, os sistemas de informação e ganhe ferramentas para o dia a dia.", ic: "monitor", ids: ["informatica-basica", "fundamentos-de-sistemas-de-informacao", "recursos-de-aula"] },
+    { t: "Redes e infraestrutura", d: "Do cabo ao projeto: aprenda como a informação viaja e como se desenha uma rede.", ic: "rede", ids: ["redes-de-computadores", "projeto-de-redes", "laboratorio-3d"] },
+    { t: "Software e dados", d: "Construa sites, modele sistemas e domine o banco de dados por trás de tudo.", ic: "cubo", ids: ["construcao-de-sites-1", "engenharia-de-software", "banco-de-dados"] },
+    { t: "Segurança e visão geral", d: "Proteja a informação e revise os grandes temas de TI em mapas interativos.", ic: "escudo", ids: ["seguranca-da-informacao", "mapas-mentais"] }
   ];
   var NV = { ini: "INICIANTE", int: "INTERMEDIÁRIO", ext: "EXTRA" };
   /* Materiais que enviam progresso (laboratórios e simuladores) e a disciplina de cada um. */
@@ -406,7 +406,7 @@ footer{margin-top:40px;color:var(--muted);font-size:14px}
     if (x.pg.length) partes.push(x.pv + "/" + x.pg.length + " páginas");
     if (x.at) partes.push(x.af + "/" + x.at + " atividades");
     return '<a class="dc" href="' + P + k + '/" data-nv="' + d.nv + '" data-st="' + st + '" aria-label="' + esc(d.nome) + ": " + (st === "feita" ? "concluída" : st === "and" ? "em andamento, " + x.pct + "%" : "não iniciada") + ", " + x.xp + ' pontos">' +
-      '<div class="ban" style="background-image:radial-gradient(circle,rgba(255,255,255,.22) 1.5px,transparent 2px),linear-gradient(135deg,' + d.cor[0] + "," + d.cor[1] + ')">' + (d.novo ? '<span class="tag">NOVO!</span>' : "") + (st === "feita" ? '<span class="tag feito">CONCLUÍDA ✓</span>' : "") + px(d.ic, "#fff") + "</div>" +
+      '<div class="ban" style="background-image:radial-gradient(circle,rgba(255,255,255,.22) 1.5px,transparent 2px),linear-gradient(135deg,var(--side),var(--accent))">' + (d.novo ? '<span class="tag">NOVO!</span>' : "") + (st === "feita" ? '<span class="tag feito">CONCLUÍDA ✓</span>' : "") + px(d.ic, "#fff") + "</div>" +
       '<div class="dcb"><span class="n">Disciplina ' + (i + 1) + '</span><h4>' + esc(d.nome) + '</h4><span class="nv ' + d.nv + '">' + NV[d.nv] + "</span><p>" + esc(d.d) + "</p>" +
       '<div class="bar" aria-hidden="true"><i style="width:' + x.pct + '%"></i></div><span class="pr">' + esc(partes.join(" · ") || "Abra para estudar") + '</span><span class="go">' + (st === "nova" ? "Começar →" : st === "feita" ? "Revisar →" : "Continuar →") + '<span class="pts">' + x.xp + " pts</span></span></div></a>";
   }
@@ -415,7 +415,7 @@ footer{margin-top:40px;color:var(--muted);font-size:14px}
     J.forEach(function (j, ji) {
       var ids = j.ids.filter(permitida); if (!ids.length) return;
       var pct = Math.round(ids.reduce(function (a, k) { return a + R.disc[k].pct; }, 0) / ids.length);
-      html += '<section class="jorn" aria-labelledby="j' + ji + '"><div class="jh"><div class="ic" style="border-color:' + j.cor + '">' + px(j.ic, j.cor) + '</div><div class="txt"><h3 id="j' + ji + '">' + esc(j.t) + "</h3><p>" + esc(j.d) + '</p><div class="jp"><span>' + ids.length + " disciplina" + (ids.length > 1 ? "s" : "") + '</span><div class="bar" aria-hidden="true"><i style="width:' + pct + '%"></i></div><span>' + pct + "% da jornada</span></div></div></div><div class=\"cards\">" + ids.map(function (k, i) { return cartao(k, i, R.disc[k]); }).join("") + "</div></section>";
+      html += '<section class="jorn" aria-labelledby="j' + ji + '"><div class="jh"><div class="ic">' + px(j.ic, "var(--accent)") + '</div><div class="txt"><h3 id="j' + ji + '">' + esc(j.t) + "</h3><p>" + esc(j.d) + '</p><div class="jp"><span>' + ids.length + " disciplina" + (ids.length > 1 ? "s" : "") + '</span><div class="bar" aria-hidden="true"><i style="width:' + pct + '%"></i></div><span>' + pct + "% da jornada</span></div></div></div><div class=\"cards\">" + ids.map(function (k, i) { return cartao(k, i, R.disc[k]); }).join("") + "</div></section>";
     });
     $("#jornadas-lista").innerHTML = html;
     var cont = { todas: 0, ini: 0, int: 0, ext: 0, and: 0, nova: 0 };
