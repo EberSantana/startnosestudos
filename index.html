@@ -507,6 +507,7 @@ footer{margin-top:40px;color:var(--muted);font-size:14px}
     if (!PA || !PA.jornada) return desenhar(lerLocal("sem-conta"), true);
     PA.jornada().then(function (j) { desenhar(lerLocal(j.sync), true); });
   }
+  desenhar(lerLocal(perfil ? "carregando" : "sem-conta"), false); /* aparece na hora; completa quando o índice chegar */
   fetch(P + "busca-index.json").then(function (r) { return r.json(); }).catch(function () { return []; }).then(function (lista) {
     (lista || []).forEach(function (p) { var k = String(p.u || "").split("/")[0]; if (D[k]) (PAG[k] = PAG[k] || []).push({ u: p.u, t: p.t || p.u }); });
     sincronizar();
