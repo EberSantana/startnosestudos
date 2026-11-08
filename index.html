@@ -256,10 +256,12 @@ footer{margin-top:40px;color:var(--muted);font-size:14px}
 
   /* ---------- catálogo ---------- */
   var MM = ["Engenharia de Software", "Banco de Dados e BI", "Redes e Infraestrutura", "Segurança e Ciber", "Cloud e DevOps", "Governança e Projetos", "Sistemas Operacionais", "LGPD e Contratações", "IA e Emergentes"];
+  var SO = ["História", "O que é um SO", "Multiprogramação e threads", "Processos", "Sincronização e E/S", "Escalonamento", "Memória", "Arquivos e Linux"];
   var FS = ["Conceitos", "Informação e organizações", "Tipos de SI", "Papéis estratégicos", "Desenvolvimento", "Segurança"];
   var D = {
     "informatica-basica": { nome: "Informática Básica", d: "Primeiros passos no computador, na internet e no pensamento computacional.", nv: "ini", ic: "monitor", cor: 1 },
     "fundamentos-de-sistemas-de-informacao": { nome: "Fundamentos para Sistemas de Informação", d: "Conceitos, tipos e papel estratégico dos SI, com diagramas clicáveis e atividades.", nv: "ini", ic: "livro", cor: 1, novo: 1, mot: { disc: "fsi", n: 6, nomes: FS } },
+    "sistemas-operacionais": { nome: "Fundamentos de Sistemas Operacionais", d: "Processos, escalonamento, memória e arquivos com simuladores e um terminal Linux para praticar.", nv: "int", ic: "chip", cor: 1, novo: 1, mot: { disc: "fso", n: 8, nomes: SO } },
     "recursos-de-aula": { nome: "Recursos de aula", d: "Cronômetro com ranking de equipes, linha do tempo tecnológica e códigos para aprender com IA.", nv: "ext", ic: "estrela", cor: 1 },
     "redes-de-computadores": { nome: "Redes de Computadores", d: "Da ARPANET ao cabo crimpado, seguindo as camadas do modelo TCP/IP.", nv: "ini", ic: "rede", cor: 1 },
     "projeto-de-redes": { nome: "Projeto de Redes", d: "Metodologia Top-Down: das metas do negócio ao teste e à documentação da rede.", nv: "int", ic: "mapa", cor: 1 },
@@ -271,7 +273,7 @@ footer{margin-top:40px;color:var(--muted);font-size:14px}
     "mapas-mentais": { nome: "Mapas Mentais de TI", d: "Nove módulos de revisão visual: software, dados, redes, segurança, nuvem, governança, SO, LGPD e IA.", nv: "int", ic: "nuvem", cor: 1, novo: 1, mot: { disc: "mmti", n: 9, nomes: MM } }
   };
   var J = [
-    { t: "Primeiros passos em TI", d: "Base sólida: entenda o computador, os sistemas de informação e ganhe ferramentas para o dia a dia.", ic: "monitor", ids: ["informatica-basica", "fundamentos-de-sistemas-de-informacao", "recursos-de-aula"] },
+    { t: "Primeiros passos em TI", d: "Base sólida: entenda o computador, os sistemas de informação e ganhe ferramentas para o dia a dia.", ic: "monitor", ids: ["informatica-basica", "fundamentos-de-sistemas-de-informacao", "sistemas-operacionais", "recursos-de-aula"] },
     { t: "Redes e infraestrutura", d: "Do cabo ao projeto: aprenda como a informação viaja e como se desenha uma rede.", ic: "rede", ids: ["redes-de-computadores", "projeto-de-redes", "laboratorio-3d"] },
     { t: "Software e dados", d: "Construa sites, modele sistemas e domine o banco de dados por trás de tudo.", ic: "cubo", ids: ["construcao-de-sites-1", "engenharia-de-software", "banco-de-dados"] },
     { t: "Segurança e visão geral", d: "Proteja a informação e revise os grandes temas de TI em mapas interativos.", ic: "escudo", ids: ["seguranca-da-informacao", "mapas-mentais"] }
@@ -282,10 +284,10 @@ footer{margin-top:40px;color:var(--muted);font-size:14px}
     "detetives-digitais-v1": "seguranca-da-informacao", "esp32-lab-v1": "laboratorio-3d", "microbit-lab-v1": "laboratorio-3d" };
   function discDe(id) {
     if (MAT[id]) return MAT[id];
-    var m = /^(mmti|fsi)-(modulo-\d+|simulado)-v1$/.exec(id); if (!m) return null; /* "mmti-v1" é o total da disciplina: não somar duas vezes */
-    return m[1] === "mmti" ? "mapas-mentais" : "fundamentos-de-sistemas-de-informacao";
+    var m = /^(mmti|fsi|fso)-(modulo-\d+|simulado)-v1$/.exec(id); if (!m) return null; /* "mmti-v1" é o total da disciplina: não somar duas vezes */
+    return m[1] === "mmti" ? "mapas-mentais" : m[1] === "fso" ? "sistemas-operacionais" : "fundamentos-de-sistemas-de-informacao";
   }
-  var motor = function (id) { return /^(mmti|fsi)-/.test(id); };
+  var motor = function (id) { return /^(mmti|fsi|fso)-/.test(id); };
   function permitida(slug) { return !PA || !PA.permitida || PA.permitida(slug); }
   function codigo(rel) {
     if (PA && PA.codigo) return PA.codigo(rel);
@@ -380,7 +382,7 @@ footer{margin-top:40px;color:var(--muted);font-size:14px}
   }
   function missao(R) {
     var m = $("#missao"), alvo = null;
-    ["mapas-mentais", "fundamentos-de-sistemas-de-informacao"].forEach(function (k) {
+    ["mapas-mentais", "fundamentos-de-sistemas-de-informacao", "sistemas-operacionais"].forEach(function (k) {
       if (alvo || !permitida(k)) return; var x = R.disc[k], mot = D[k].mot;
       var fim = function (s) { return s.t && s.f / s.t >= 0.9; }, i;
       for (i = 0; i < x.mods.length && !alvo; i++) if (x.mods[i].f > 0 && !fim(x.mods[i])) alvo = { k: k, i: i, s: x.mods[i], mot: mot }; /* primeiro: o que já começou */
@@ -453,7 +455,7 @@ footer{margin-top:40px;color:var(--muted);font-size:14px}
   }
   function aventuras(R) {
     var av = "";
-    ["mapas-mentais", "fundamentos-de-sistemas-de-informacao"].forEach(function (k) { if (permitida(k)) av += aventura(k, R.disc[k]); });
+    ["mapas-mentais", "fundamentos-de-sistemas-de-informacao", "sistemas-operacionais"].forEach(function (k) { if (permitida(k)) av += aventura(k, R.disc[k]); });
     $("#aventuras").innerHTML = av || '<p class="sub">Nenhuma disciplina com módulos interativos liberada para o seu curso por enquanto.</p>';
     /* no celular, o mapa já abre no próximo passo */
     $$(".sv").forEach(function (sv) {
