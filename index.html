@@ -152,6 +152,13 @@ a.dc[hidden]{display:none}
 .legenda .l3::before{border-color:var(--gold);background:var(--gold)}
 .legenda .l4::before{border-color:var(--accent);border-style:dashed}
 /* conquistas */
+.rank{list-style:none;margin:0;padding:0;display:grid;gap:8px;max-width:640px}
+.rank li{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;background:var(--panel);border:2px solid var(--line);border-radius:10px;padding:10px 14px}
+.rank li.me{border-color:var(--accent);box-shadow:4px 4px 0 var(--accent)}
+.rank .pos{font:700 22px/1 "Barlow Condensed","Arial Narrow",sans-serif;color:var(--muted);text-align:center}
+.rank li:nth-child(-n+3) .pos{color:var(--gold)}
+.rank .nm{font-weight:700;color:var(--ink)}.rank .nm small{display:block;font:400 13px/1.2 "Source Sans 3",system-ui,sans-serif;color:var(--muted)}
+.rank .pt{font:700 16px/1 "JetBrains Mono",monospace;color:var(--ink)}
 .conq{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
 .cq{display:flex;gap:12px;align-items:center;background:var(--panel);border:2px solid var(--line);border-radius:10px;padding:12px}
 .cq svg{width:40px;height:40px;flex:none}
@@ -205,6 +212,11 @@ footer{margin-top:40px;color:var(--muted);font-size:14px}
   <p class="sub">Cada ponto é um módulo. Toque para entrar.</p>
   <p class="legenda" aria-hidden="true"><span>Não iniciado</span><span class="l2">Em andamento</span><span class="l3">Dominado</span><span class="l4">Próximo passo</span></p>
   <div id="aventuras"></div>
+  <section id="rank-sec" hidden>
+    <h2 class="sec" id="ranking">Ranking da turma</h2>
+    <p class="sub">Os 10 com mais pontos na sua turma. Sem pressão: o ranking só mostra o primeiro nome e a inicial do sobrenome.</p>
+    <ol class="rank" id="rank"></ol>
+  </section>
   <h2 class="sec" id="conquistas">Conquistas</h2>
   <p class="sub">Selos que se acendem com o seu esforço, sem pressa e sem concorrência: aqui o seu adversário é você de ontem.</p>
   <div class="conq" id="conq"></div>
@@ -518,7 +530,28 @@ footer{margin-top:40px;color:var(--muted);font-size:14px}
     var R = calcular(o);
     player(R, o); acoes(); missao(R); jornadas(R); aventuras(R);
     var g = conquistas(R);
-    if (final) novidades(R, g);
+    if (final) { novidades(R, g); ranking(R); }
+  }
+  /* ---------- ranking da turma (top 10) ---------- */
+  var RK = (window.RANKING_URL || "").trim(), rkEnviado = null;
+  function ranking(R) {
+    var sec = $("#rank-sec"); if (!sec || !RK || !perfil || !perfil.turma) return;
+    var mandar = Promise.resolve();
+    if (R.xp > 0 && rkEnviado !== R.xp) {
+      rkEnviado = R.xp;
+      mandar = fetch(RK, { method: "POST", body: JSON.stringify({ acao: "jornada", turma: perfil.turma, id: perfil.id, pin: perfil.pin, visitas: [], dias: [], xp: R.xp }) }).catch(function () {});
+    }
+    mandar.then(function () { return fetch(RK + "?acao=ranking&turma=" + encodeURIComponent(perfil.turma) + "&t=" + Date.now()); })
+      .then(function (r) { return r.json(); })
+      .then(function (v) {
+        if (!v || !v.ok || !v.lista || !v.lista.length) { sec.hidden = true; return; }
+        var eu = String(perfil.apelido || "").toLowerCase();
+        $("#rank").innerHTML = v.lista.map(function (x, i) {
+          var L = nivelDe(x.xp), me = String(x.apelido).toLowerCase() === eu;
+          return '<li class="' + (me ? "me" : "") + '"><span class="pos">' + (i + 1) + 'º</span><span class="nm">' + esc(x.apelido) + (me ? " (você)" : "") + "<small>Nível " + L + " · " + TIT[Math.min(L, TIT.length) - 1] + '</small></span><span class="pt">' + x.xp + " pts</span></li>";
+        }).join("");
+        sec.hidden = false;
+      }).catch(function () {});
   }
   function sincronizar() {
     desenhar(lerLocal("carregando"), false);
