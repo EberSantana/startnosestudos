@@ -258,6 +258,7 @@ footer{margin-top:40px;color:var(--muted);font-size:14px}
   /* ---------- catálogo ---------- */
   var MM = ["Engenharia de Software", "Banco de Dados e BI", "Redes e Infraestrutura", "Segurança e Ciber", "Cloud e DevOps", "Governança e Projetos", "Sistemas Operacionais", "LGPD e Contratações", "IA e Emergentes"];
   var M_BD = ["Introdução", "Projeto", "Modelo ER", "Relacional", "EER", "SQL", "Normalização", "Integridade", "DW e OLAP", "Consultas avançadas", "Programação", "Transações", "Segurança"];
+  var M_SEG = ["Introdução", "Conceitos", "Pilares e hash", "Ciclo de vida", "Classificação e LGPD", "Monitoramento", "Malware e golpes", "Riscos", "Defesas"];
   var OC = ["Evolução e numeração", "Von Neumann e CPU", "Hierarquia de memória", "E/S e montagem", "Inicialização e SO"];
   var SO = ["História", "O que é um SO", "Multiprogramação e threads", "Processos", "Sincronização e E/S", "Escalonamento", "Memória", "Arquivos e Linux"];
   var FS = ["Conceitos", "Informação e organizações", "Tipos de SI", "Papéis estratégicos", "Desenvolvimento", "Segurança"];
@@ -273,7 +274,7 @@ footer{margin-top:40px;color:var(--muted);font-size:14px}
     "construcao-de-sites-1": { nome: "Construção de Sites 1", d: "HTML e CSS do bloco de notas ao site publicado.", nv: "ini", ic: "cubo", cor: 1 },
     "engenharia-de-software": { nome: "Engenharia de Software", d: "Processos, requisitos e modelagem de software.", nv: "int", ic: "cubo", cor: 1 },
     "banco-de-dados": { nome: "Banco de Dados", d: "Modelagem, SQL e integração de sistemas com banco de dados.", nv: "int", ic: "banco", cor: 1, novo: 1, mot: { disc: "bd", n: 13, nomes: M_BD } },
-    "seguranca-da-informacao": { nome: "Segurança da Informação", d: "Princípios, ameaças, controles e boas práticas de proteção da informação.", nv: "int", ic: "escudo", cor: 1 },
+    "seguranca-da-informacao": { nome: "Segurança da Informação", d: "Princípios, ameaças, controles e boas práticas de proteção da informação.", nv: "int", ic: "escudo", cor: 1, novo: 1, mot: { disc: "seg", n: 9, nomes: M_SEG } },
     "mapas-mentais": { nome: "Mapas Mentais de TI", d: "Nove módulos de revisão visual: software, dados, redes, segurança, nuvem, governança, SO, LGPD e IA.", nv: "int", ic: "nuvem", cor: 1, novo: 1, mot: { disc: "mmti", n: 9, nomes: MM } }
   };
   var J = [
@@ -288,10 +289,10 @@ footer{margin-top:40px;color:var(--muted);font-size:14px}
     "detetives-digitais-v1": "seguranca-da-informacao", "esp32-lab-v1": "laboratorio-3d", "microbit-lab-v1": "laboratorio-3d" };
   function discDe(id) {
     if (MAT[id]) return MAT[id];
-    var m = /^(mmti|fsi|fso|orgc|bd)-(modulo-\d+|simulado)-v1$/.exec(id); if (!m) return null; /* "mmti-v1" é o total da disciplina: não somar duas vezes */
-    return m[1] === "mmti" ? "mapas-mentais" : m[1] === "fso" ? "sistemas-operacionais" : m[1] === "orgc" ? "organizacao-de-computadores" : m[1] === "bd" ? "banco-de-dados" : "fundamentos-de-sistemas-de-informacao";
+    var m = /^(mmti|fsi|fso|orgc|bd|seg)-(modulo-\d+|simulado)-v1$/.exec(id); if (!m) return null; /* "mmti-v1" é o total da disciplina: não somar duas vezes */
+    return m[1] === "mmti" ? "mapas-mentais" : m[1] === "fso" ? "sistemas-operacionais" : m[1] === "orgc" ? "organizacao-de-computadores" : m[1] === "seg" ? "seguranca-da-informacao" : m[1] === "bd" ? "banco-de-dados" : "fundamentos-de-sistemas-de-informacao";
   }
-  var motor = function (id) { return /^(mmti|fsi|fso|orgc|bd)-/.test(id); };
+  var motor = function (id) { return /^(mmti|fsi|fso|orgc|bd|seg)-/.test(id); };
   function permitida(slug) { return !PA || !PA.permitida || PA.permitida(slug); }
   function codigo(rel) {
     if (PA && PA.codigo) return PA.codigo(rel);
@@ -386,7 +387,7 @@ footer{margin-top:40px;color:var(--muted);font-size:14px}
   }
   function missao(R) {
     var m = $("#missao"), alvo = null;
-    ["organizacao-de-computadores", "sistemas-operacionais", "banco-de-dados", "mapas-mentais", "fundamentos-de-sistemas-de-informacao"].forEach(function (k) {
+    ["organizacao-de-computadores", "sistemas-operacionais", "seguranca-da-informacao", "banco-de-dados", "mapas-mentais", "fundamentos-de-sistemas-de-informacao"].forEach(function (k) {
       if (alvo || !permitida(k)) return; var x = R.disc[k], mot = D[k].mot;
       var fim = function (s) { return s.t && s.f / s.t >= 0.9; }, i;
       for (i = 0; i < x.mods.length && !alvo; i++) if (x.mods[i].f > 0 && !fim(x.mods[i])) alvo = { k: k, i: i, s: x.mods[i], mot: mot }; /* primeiro: o que já começou */
@@ -464,7 +465,7 @@ footer{margin-top:40px;color:var(--muted);font-size:14px}
   }
   function aventuras(R) {
     var av = "";
-    ["organizacao-de-computadores", "sistemas-operacionais", "banco-de-dados", "mapas-mentais", "fundamentos-de-sistemas-de-informacao"].forEach(function (k) { if (permitida(k)) av += aventura(k, R.disc[k]); });
+    ["organizacao-de-computadores", "sistemas-operacionais", "seguranca-da-informacao", "banco-de-dados", "mapas-mentais", "fundamentos-de-sistemas-de-informacao"].forEach(function (k) { if (permitida(k)) av += aventura(k, R.disc[k]); });
     $("#aventuras").innerHTML = av || '<p class="sub">Nenhuma disciplina com módulos interativos liberada para o seu curso por enquanto.</p>';
     /* no celular, o mapa já abre no próximo passo */
     $$(".sv").forEach(function (sv) {
