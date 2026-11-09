@@ -257,6 +257,7 @@ footer{margin-top:40px;color:var(--muted);font-size:14px}
 
   /* ---------- catálogo ---------- */
   var MM = ["Engenharia de Software", "Banco de Dados e BI", "Redes e Infraestrutura", "Segurança e Ciber", "Cloud e DevOps", "Governança e Projetos", "Sistemas Operacionais", "LGPD e Contratações", "IA e Emergentes"];
+  var M_BD = ["Introdução", "Projeto", "Modelo ER", "Relacional", "EER", "SQL", "Normalização", "Integridade", "DW e OLAP", "Consultas avançadas", "Programação", "Transações", "Segurança"];
   var OC = ["Evolução e numeração", "Von Neumann e CPU", "Hierarquia de memória", "E/S e montagem", "Inicialização e SO"];
   var SO = ["História", "O que é um SO", "Multiprogramação e threads", "Processos", "Sincronização e E/S", "Escalonamento", "Memória", "Arquivos e Linux"];
   var FS = ["Conceitos", "Informação e organizações", "Tipos de SI", "Papéis estratégicos", "Desenvolvimento", "Segurança"];
@@ -271,7 +272,7 @@ footer{margin-top:40px;color:var(--muted);font-size:14px}
     "laboratorio-3d": { nome: "Laboratório 3D", d: "ESP32, micro:bit e Arduino em 3D: gire a placa, monte o circuito e programe no navegador.", nv: "ext", ic: "chip", cor: 1 },
     "construcao-de-sites-1": { nome: "Construção de Sites 1", d: "HTML e CSS do bloco de notas ao site publicado.", nv: "ini", ic: "cubo", cor: 1 },
     "engenharia-de-software": { nome: "Engenharia de Software", d: "Processos, requisitos e modelagem de software.", nv: "int", ic: "cubo", cor: 1 },
-    "banco-de-dados": { nome: "Banco de Dados", d: "Modelagem, SQL e integração de sistemas com banco de dados.", nv: "int", ic: "banco", cor: 1 },
+    "banco-de-dados": { nome: "Banco de Dados", d: "Modelagem, SQL e integração de sistemas com banco de dados.", nv: "int", ic: "banco", cor: 1, novo: 1, mot: { disc: "bd", n: 13, nomes: M_BD } },
     "seguranca-da-informacao": { nome: "Segurança da Informação", d: "Princípios, ameaças, controles e boas práticas de proteção da informação.", nv: "int", ic: "escudo", cor: 1 },
     "mapas-mentais": { nome: "Mapas Mentais de TI", d: "Nove módulos de revisão visual: software, dados, redes, segurança, nuvem, governança, SO, LGPD e IA.", nv: "int", ic: "nuvem", cor: 1, novo: 1, mot: { disc: "mmti", n: 9, nomes: MM } }
   };
@@ -287,10 +288,10 @@ footer{margin-top:40px;color:var(--muted);font-size:14px}
     "detetives-digitais-v1": "seguranca-da-informacao", "esp32-lab-v1": "laboratorio-3d", "microbit-lab-v1": "laboratorio-3d" };
   function discDe(id) {
     if (MAT[id]) return MAT[id];
-    var m = /^(mmti|fsi|fso|orgc)-(modulo-\d+|simulado)-v1$/.exec(id); if (!m) return null; /* "mmti-v1" é o total da disciplina: não somar duas vezes */
-    return m[1] === "mmti" ? "mapas-mentais" : m[1] === "fso" ? "sistemas-operacionais" : m[1] === "orgc" ? "organizacao-de-computadores" : "fundamentos-de-sistemas-de-informacao";
+    var m = /^(mmti|fsi|fso|orgc|bd)-(modulo-\d+|simulado)-v1$/.exec(id); if (!m) return null; /* "mmti-v1" é o total da disciplina: não somar duas vezes */
+    return m[1] === "mmti" ? "mapas-mentais" : m[1] === "fso" ? "sistemas-operacionais" : m[1] === "orgc" ? "organizacao-de-computadores" : m[1] === "bd" ? "banco-de-dados" : "fundamentos-de-sistemas-de-informacao";
   }
-  var motor = function (id) { return /^(mmti|fsi|fso|orgc)-/.test(id); };
+  var motor = function (id) { return /^(mmti|fsi|fso|orgc|bd)-/.test(id); };
   function permitida(slug) { return !PA || !PA.permitida || PA.permitida(slug); }
   function codigo(rel) {
     if (PA && PA.codigo) return PA.codigo(rel);
@@ -385,7 +386,7 @@ footer{margin-top:40px;color:var(--muted);font-size:14px}
   }
   function missao(R) {
     var m = $("#missao"), alvo = null;
-    ["organizacao-de-computadores", "sistemas-operacionais", "mapas-mentais", "fundamentos-de-sistemas-de-informacao"].forEach(function (k) {
+    ["organizacao-de-computadores", "sistemas-operacionais", "banco-de-dados", "mapas-mentais", "fundamentos-de-sistemas-de-informacao"].forEach(function (k) {
       if (alvo || !permitida(k)) return; var x = R.disc[k], mot = D[k].mot;
       var fim = function (s) { return s.t && s.f / s.t >= 0.9; }, i;
       for (i = 0; i < x.mods.length && !alvo; i++) if (x.mods[i].f > 0 && !fim(x.mods[i])) alvo = { k: k, i: i, s: x.mods[i], mot: mot }; /* primeiro: o que já começou */
@@ -441,11 +442,11 @@ footer{margin-top:40px;color:var(--muted);font-size:14px}
 
   /* ---------- mapas de aventura ---------- */
   function aventura(k, x) {
-    var d = D[k], mot = d.mot, W = 720, H = 360, svg = "", pts = [], agora = -1;
+    var d = D[k], mot = d.mot, W, H = 360, svg = "", pts = [], agora = -1;
     /* módulos ocultos pelo professor saem do mapa; os agendados aparecem com cadeado e a data */
     var RG = function (i) { return PA && PA.regra ? PA.regra(k + "#" + (i + 1)) : "v"; };
     var VI = []; for (var q = 0; q < mot.n; q++) if (RG(q) !== "o") VI.push(q);
-    var n = VI.length; if (!n) return "";
+    var n = VI.length; if (!n) return ""; W = Math.max(720, 120 + (n - 1) * 116);
     function linhas(s) { var w = s.split(" "), a = [""]; w.forEach(function (p) { var l = a[a.length - 1]; if (l && (l + " " + p).length > 14) a.push(p); else a[a.length - 1] = l ? l + " " + p : p; }); return a.slice(0, 2); }
     for (var i = 0; i < n; i++) { pts.push([n > 1 ? 60 + i * ((W - 120) / (n - 1)) : W / 2, H / 2 + (i % 2 ? 62 : -62)]); var s0 = x.mods[VI[i]]; if (agora < 0 && RG(VI[i]) === "v" && (!s0.t || s0.f / s0.t < 0.9)) agora = i; }
     var caminho = function (a) { return "M" + a.map(function (p) { return p[0] + " " + p[1]; }).join(" L"); };
@@ -459,16 +460,16 @@ footer{margin-top:40px;color:var(--muted);font-size:14px}
       svg += '<a href="' + P + k + "/modulo-" + (i + 1) + '.html" aria-label="Módulo ' + (i + 1) + ": " + esc(mot.nomes[i]) + ", " + est + (j === agora ? ", próximo passo" : "") + '"><g class="no ' + c + '" transform="translate(' + p[0] + "," + p[1] + ')"><circle r="26"/><text class="n">' + (fech ? "🔒" : r >= 0.9 ? "★" : i + 1) + "</text>" +
         L.map(function (l, t) { return '<text class="l" y="' + ys[t] + '">' + esc(l) + "</text>"; }).join("") + '<text class="p" y="' + yp + '">' + (fech ? "abre " + rg.slice(8, 10) + "/" + rg.slice(5, 7) : s.f + "/" + s.t) + "</text></g></a>";
     });
-    return '<h3 style="font-family:Barlow Condensed,sans-serif;font-size:26px;margin:22px 0 2px">' + esc(d.nome) + '</h3><p class="dica">Arraste para o lado para ver todos os módulos →</p><div class="sv" data-agora="' + agora + '" data-n="' + n + '"><svg class="adv" viewBox="0 0 ' + W + " " + H + '" role="group" aria-label="Mapa de aventura de ' + esc(d.nome) + '">' + svg + "</svg></div>";
+    return '<h3 style="font-family:Barlow Condensed,sans-serif;font-size:26px;margin:22px 0 2px">' + esc(d.nome) + '</h3><p class="dica">Arraste para o lado para ver todos os módulos →</p><div class="sv" data-agora="' + agora + '" data-n="' + n + '" data-w="' + W + '"><svg class="adv" style="min-width:' + Math.round(W * 0.88) + 'px" viewBox="0 0 ' + W + " " + H + '" role="group" aria-label="Mapa de aventura de ' + esc(d.nome) + '">' + svg + "</svg></div>";
   }
   function aventuras(R) {
     var av = "";
-    ["organizacao-de-computadores", "sistemas-operacionais", "mapas-mentais", "fundamentos-de-sistemas-de-informacao"].forEach(function (k) { if (permitida(k)) av += aventura(k, R.disc[k]); });
+    ["organizacao-de-computadores", "sistemas-operacionais", "banco-de-dados", "mapas-mentais", "fundamentos-de-sistemas-de-informacao"].forEach(function (k) { if (permitida(k)) av += aventura(k, R.disc[k]); });
     $("#aventuras").innerHTML = av || '<p class="sub">Nenhuma disciplina com módulos interativos liberada para o seu curso por enquanto.</p>';
     /* no celular, o mapa já abre no próximo passo */
     $$(".sv").forEach(function (sv) {
       var a = +sv.getAttribute("data-agora"), n = +sv.getAttribute("data-n"); if (a < 1 || sv.scrollWidth <= sv.clientWidth) return;
-      sv.scrollLeft = Math.max(0, (60 + a * (600 / Math.max(1, n - 1))) / 720 * sv.scrollWidth - sv.clientWidth / 2);
+      var w = +sv.getAttribute("data-w") || 720; sv.scrollLeft = Math.max(0, (60 + a * ((w - 120) / Math.max(1, n - 1))) / w * sv.scrollWidth - sv.clientWidth / 2);
     });
   }
 
